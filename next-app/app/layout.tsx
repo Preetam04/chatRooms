@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import Navbar from "@/components/navbar";
+import { Toaster } from "@/components/ui/toaster";
+import Footer from "@/components/footer";
 
 export const metadata: Metadata = {
   title: "ChatRooms",
@@ -16,17 +18,27 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="flex items-center flex-col py-24 relative w-full h-full">
+      <body className="bg-background">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          <div className="absolute right-10 top-10">
+          {/* <div className="absolute right-10 top-10 z-50">
             <Navbar />
+          </div> */}
+          <div className="flex items-center flex-col  relative w-full  justify-start h-screen px-4">
+            {children}
           </div>
-          <div className="w-full h-full mt-14">{children}</div>
+
+          <div
+            className="absolute bottom-0 w-full
+          "
+          >
+            <Footer />
+          </div>
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>

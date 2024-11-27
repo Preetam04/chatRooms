@@ -66,3 +66,30 @@
     --chart-5: 340 75% 55%;
   }
 }
+
+.scrollable-container::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: hsl(var(--secondary));
+  opacity: 10%;
+}
+
+.scrollable-container::-webkit-scrollbar {
+  width: 2px;
+  background-color: hsl(var(--secondary));
+  opacity: 10%;
+}
+
+.scrollable-container::-webkit-scrollbar-thumb {
+  border-radius: 2px;
+
+  background-color: hsl(var(--primary));
+}
+
+.scrollable-container {
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--primary)) hsla(var(--secondary), 0.1);
+}
+
+.scrollable-container {
+  scrollbar-color: hsl(var(--primary)) hsl(var(--secondary));
+}
