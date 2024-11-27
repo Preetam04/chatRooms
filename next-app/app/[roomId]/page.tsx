@@ -69,6 +69,9 @@ export default function ChatRoom() {
   return (
     <div className="container  flex h-screen items-center flex-col jus pt-28 ">
       <div className="w-full max-w-xl h-3/5">
+        <h1 className="font-bold text-4xl text-left ">
+          Chat<span className="text-primary">Rooms</span>
+        </h1>
         <h3 className="text-foreground/50 text-left mb-2">
           Room Id: <span className="text-foreground">{roomId}</span>
         </h3>
