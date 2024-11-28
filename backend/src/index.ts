@@ -44,28 +44,38 @@ app.get("/valid-rooms", async (req, res) => {
 const socketServer = new WebSocketServer({ server: httpServer });
 
 socketServer.on("connection", (wss) => {
-  console.log("socket running");
-
-  console.log("New WebSocket connection");
   let currentRoom = null;
+  console.log("new Connection");
 
-  wss.on("message", (value) => {
+  wss.on("message", async (value) => {
     const message = JSON.parse(value.toString());
 
     if (message.type === JOIN_ROOM) {
-      wss.send(
-        JSON.stringify({
-          message: "Room joined",
-        })
-      );
+      const roomId = message.payload.roomId;
+
+      const isValid = await redisClient.sIsMember("validRooms", roomId);
+
+      if (!isValid) {
+        wss.send(JSON.stringify({ type: "error", message: "Invalid room ID" }));
+        return;
+      }
+
+      subscriber.subscribe(roomId, (msg) => {
+        wss.send(
+          JSON.stringify({ type: "message", roomId: currentRoom, message: msg })
+        );
+      });
     }
     if (message.type === CHAT) {
-      console.log(message);
-      wss.send(
-        JSON.stringify({
-          message: "Chat published",
-        })
-      );
+      const { chat, roomId } = message.payload;
+
+      const isValid = await redisClient.sIsMember("validRooms", roomId);
+      if (!isValid) {
+        wss.send(JSON.stringify({ type: "error", message: "Invalid room ID" }));
+        return;
+      }
+
+      await publisher.publish(roomId, chat);
     }
   });
 
