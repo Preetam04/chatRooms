@@ -14,10 +14,6 @@ export default function ChatBox({ messages }: { messages: string[] }) {
     setAllMessages(messages);
   }, []);
 
-  useEffect(() => {
-    chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
-  }, [setAllMessages, allMessages]);
-
   const onSend = () => {
     if (chat === "") return;
 

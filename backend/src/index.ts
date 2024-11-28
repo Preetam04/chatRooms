@@ -61,13 +61,15 @@ socketServer.on("connection", (wss) => {
       }
 
       subscriber.subscribe(roomId, (msg) => {
+        // console.log(msg);
+
         wss.send(
           JSON.stringify({ type: "message", roomId: currentRoom, message: msg })
         );
       });
     }
     if (message.type === CHAT) {
-      const { chat, roomId } = message.payload;
+      const { chat, roomId, uuid } = message.payload;
 
       const isValid = await redisClient.sIsMember("validRooms", roomId);
       if (!isValid) {
@@ -75,7 +77,9 @@ socketServer.on("connection", (wss) => {
         return;
       }
 
-      await publisher.publish(roomId, chat);
+      // console.log(uuid);
+
+      await publisher.publish(roomId, JSON.stringify({ message: chat, uuid }));
     }
   });
 
