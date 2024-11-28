@@ -25,9 +25,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {/* <div className="absolute right-10 top-10 z-50">
+          <div className="absolute right-10 top-10 z-50">
             <Navbar />
-          </div> */}
+          </div>
           <div className="flex items-center flex-col  relative w-full  justify-start h-screen px-4">
             {children}
           </div>
