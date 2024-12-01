@@ -1,5 +1,4 @@
 import CodeGeneratorCard from "@/components/code-generator-card";
-import { Button } from "@/components/ui/button";
 
 export default function Home() {
   return (
@@ -12,6 +11,7 @@ export default function Home() {
           Create a room and share it with your friends to get started
         </p>
       </div>
+
       <CodeGeneratorCard />
     </div>
   );

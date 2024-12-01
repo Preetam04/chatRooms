@@ -42,14 +42,19 @@ export default function ChatRoom() {
     };
 
     newSocket.onmessage = (message) => {
+      console.log(message);
+
       const data = JSON.parse(message.data);
       if (data.type === "error") {
         // navigate.push("/error/" + roomId);
         setError(true);
+        // return;
       }
 
-      console.log(data);
       const recievedMessage = JSON.parse(data.message);
+      console.log(recievedMessage);
+
+      // const recievedMessage = data.message;
       setAllMessages((prev) => [...prev, recievedMessage]);
     };
 
